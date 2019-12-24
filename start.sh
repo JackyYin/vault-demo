@@ -16,5 +16,5 @@ vault write database/config/my-mongodb-database \
 vault write database/roles/my-role \
   db_name=my-mongodb-database \
   creation_statements='{ "db": "admin", "roles": [{"role": "readWrite", "db": "'"${MONGO_DATABASE}"'"}]}' \
-  default_ttl="1h" \
-  max_ttl="24h"
+  default_ttl="5s" \
+  max_ttl="10s"
