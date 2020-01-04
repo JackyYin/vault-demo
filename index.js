@@ -2,14 +2,14 @@ const mongo = require('nodejs-utils').DB.mongoDBConstructor
 const vault = require('node-vault')({ token: 'myroot' })
 const os = require('os')
 
-let mongoClient = null
+let mongoUtils = null
 let timer = null
 let curLeaseId = null
 
 const periodicQuery = (collection, name) => {
-  return mongoClient.connect().then(DBI => {
+  return mongoUtils.connect().then(DBI => {
     timer = setInterval(() => {
-      return mongoClient.find(collection, {name}, DBI).then(resp => {
+      return mongoUtils.find(collection, {name}, DBI).then(resp => {
         console.log('query result: ', resp)
       }).catch(err => {
         console.error('failed to query mongoDB')
@@ -35,7 +35,7 @@ const genNewMongoClient = (db) => {
       db
     }
 
-    mongoClient = mongo(options)
+    mongoUtils = mongo(options)
     return Promise.resolve()
   })
 }
